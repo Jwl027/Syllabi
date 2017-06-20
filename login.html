@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <title>Syallbi</title>
+        <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+            <input id="txtEmail" type="email" placeholder="User">
+
+            <input id="txtPassword" type="password" placeholder="Password">
+
+            <button id="log">Log in</button>
+            <button id="reg">Register</button>
+            <button id="logout" display="none">Log out</button>
+        
+        </div>
+
+        <script>
+            (function(){
+                 var config = {
+                   apiKey: "AIzaSyCJNj2leWSE833R4BoBZjAWWkAgYfB1R_o",
+                   authDomain: "syllabi-b9ca4.firebaseapp.com",
+                   databaseURL: "https://syllabi-b9ca4.firebaseio.com",
+                   projectId: "syllabi-b9ca4",
+                   storageBucket: "syllabi-b9ca4.appspot.com",
+                   messagingSenderId: "312202010876"
+                 };
+                 firebase.initializeApp(config);
+
+
+                 const auth = firebase.auth();
+                 var user= document.getElementById("txtEmail");
+                 var pass=document.getElementById("txtPassword");
+                 var log=document.getElementById("log");
+                 var reg=document.getElementById("reg");
+                 var out=document.getElementById("logout");
+                 
+                 log.addEventListener('click',e=>{
+                    out.display ="";
+                    const email = txtEmail.value;
+                    const password = pass.value;
+                    const auth = firebase.auth();
+                    const promise = auth.signInWithEmailAndPassword(email,password);
+                    promise.catch(e=> console.log(e.message));
+
+                    });
+
+                 reg.addEventListener('click',e=>{
+                    const email = txtEmail.value;
+                    const password = pass.value;
+                    const auth = firebase.auth();
+                    const promise = auth.createUserWithEmailAndPassword(email,password);
+                    promise.catch(e=> console.log(e.message+"\tNANI"));
+
+                    });
+                 out.addEventListener('click',e=>{
+                    firebase.auth().signOut();   
+                    });
+
+                 //Doesnt check fast enough need loading screen?
+                 firebase.auth().onAuthStateChanged(firebaseUser=>{
+                    //When authenticated
+                    if(firebaseUser){
+                        user.style.display="none";
+                        
+                        pass.style.display ="none";
+                        console.log("OCCURENCE \t");
+                        console.log(firebaseUser);
+                        log.style.display ="none";
+                        reg.style.display ="none";
+                        out.style.display="inline";
+                        console.log("dis change 1");
+                    }
+                    //When not authenticated
+                    else{
+                        console.log("none");
+                        out.style.display="none";
+                        log.style.display ="inline";
+                        reg.style.display ="inline";
+                        console.log("dis change 2");
+                        user.style.display="inline";
+                        pass.style.display ="inline";
+
+                        pass.value="";
+                        user.value="";
+                    }
+                    });
+
+            }());
+        </script>
+    </body>
+</html>
+

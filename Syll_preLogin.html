@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+        <title> Syallbi </title>
+        <p> <strong id="nani">  Title  </strong> </p>
+        <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
+
+    </head>
+
+    <body>
+        <div class="topnav" id="myTopnav">
+            <a href="#home">Home</a>
+            <a href="#news">News</a>
+            <a href="#contact">Contact</a>
+            <a href="#about">About</a>
+        </div>
+       <!-- <embed src="ex.pdf" width="800px" height="2100px" id="viewer"/> -->
+        <!--<input type="button" id="get_file" value="Grab file"
+        onclick="funcy()"> -->
+        <input type="file" value="upload" id ="the_file">
+        <button id="uppy"> upload </button>
+        <pre id="object"></pre>
+        <script>
+            function funcy() {
+                //document.getElementById("the_file").click();
+                document.getElementById("nani").style.color="red";
+                var ori = document.getElementById("viewer");
+                var clone = ori.cloneNode(true);
+                clone.setAttribute('src',"s.pdf");
+                ori.parentNode.replaceChild(clone,ori);
+                document.getElementById("nani").style.color="blue";
+
+var preObject = document.getElementById("object");
+              preObject.innerText = "k";
+              var ref = firebase.database().ref().child('object');
+              //ref is to the root?
+            
+        ref.on('value', snap =>{ 
+           console.log(snap.val());
+           preObject.innerText = JSON.stringify(snap.val(),null,3);
+           preObject.innerText = "lol";
+           
+        }
+        
+
+        
+        
+        );
+
+
+                
+            }
+        </script>
+        
+        <script src="app.js">
+                /*
+        // Initialize Firebase
+        (function(){
+                document.getElementById("nani").style.color="red";
+           
+        var config = {
+            apiKey: "AIzaSyCJNj2leWSE833R4BoBZjAWWkAgYfB1R_o",
+            authDomain: "syllabi-b9ca4.firebaseapp.com",
+            databaseURL: "https://syllabi-b9ca4.firebaseio.com",
+            projectId: "syllabi-b9ca4",
+            storageBucket: "",
+            messagingSenderId: "312202010876"
+        };
+        firebase.initializeApp(config);
+
+        const preObject = document.getElementById('object');
+
+        const dbRefObject = firebase.database().ref().child('object);
+        dbRefObject.on('value',snap => console.log(snap.val()));
+
+        }());*/
+        </script>
+        
+
+    </body>
+
+</html>
