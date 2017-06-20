@@ -8,13 +8,27 @@
     </head>
 
     <body>
+        <div class="container">
+            <input id="txtEmail" type="email" placeholder="User">
+
+            <input id="txtPassword" type="password" placeholder="Password">
+
+            <button id="log">Log in</button>
+            <button id="reg">Register</button>
+            <button id="logout" display="none">Log out</button>
+        
+        </div>
+        <div>
+        <button id="side_nav" onclick="test()">View Syllabi</button>
+        </div>
         <div class="topnav" id="myTopnav">
             <a href="#home">Home</a>
             <a href="#news">News</a>
             <a href="#contact">Contact</a>
             <a href="#about">About</a>
         </div>
-       <!-- <embed src="ex.pdf" width="800px" height="2100px" id="viewer"/> -->
+        <embed src="" width="800px" height="2100px" id="viewer"
+        display="none"/> 
         <!--<input type="button" id="get_file" value="Grab file"
         onclick="funcy()"> -->
         <input type="file" value="upload" id ="the_file">
@@ -51,7 +65,13 @@ var preObject = document.getElementById("object");
                 
             }
         </script>
-        
+        <script>
+            function test(){
+                
+
+
+            }
+        </script>
         <script src="app.js">
                 /*
         // Initialize Firebase

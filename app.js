@@ -1,6 +1,23 @@
 var upload;
 (function(){
-    //const upload="";            
+    document.getElementById("txtPassword")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        console.log("c:");
+        document.getElementById("log").click();
+    }
+});  
+    document.getElementById("txtEmail")
+    .addEventListener("keyup", function(event) {
+    event.preventDefault();
+    if (event.keyCode == 13) {
+        console.log("xd");
+        document.getElementById("log").click();
+    }
+}); 
+    
+      //const upload="";            
                 //document.getElementById("nani").style.color="red";
                  var config = {
     apiKey: "AIzaSyCJNj2leWSE833R4BoBZjAWWkAgYfB1R_o",
@@ -33,6 +50,8 @@ var upload;
 
   console.log("nanideska");
   var fileButton = document.getElementById('the_file');
+
+  //put file
   fileButton.addEventListener('change',function(e){
      var file = e.target.files[0];
      upload = file;
@@ -58,5 +77,91 @@ var upload;
   //ref.put("ex.pdf");
   //var storage = firebase.storage.ref();
   //var pdfRef = storage.child();
+
+
+   const auth = firebase.auth();
+   var user= document.getElementById("txtEmail");
+                 var pass=document.getElementById("txtPassword");
+                 var log=document.getElementById("log");
+                 var reg=document.getElementById("reg");
+                 var out=document.getElementById("logout");
+
+
+
+        log.addEventListener('click',e=>{
+                    out.display ="";
+                    const email = txtEmail.value;
+                    const password = pass.value;
+                    const auth = firebase.auth();
+                    const promise = auth.signInWithEmailAndPassword(email,password);
+                    promise.catch(e=> console.log(e.message));
+
+                    });
+
+
+
+
+                 reg.addEventListener('click',e=>{
+                    const email = txtEmail.value;
+                    const password = pass.value;
+                    const auth = firebase.auth();
+                    const promise = auth.createUserWithEmailAndPassword(email,password);
+                    promise.catch(e=> console.log(e.message+"\tNANI"));
+
+                    });
+                 out.addEventListener('click',e=>{
+                        //var user = auth.currentUser;
+                        //console.log("check with back end\t"+user.getToken());
+                    firebase.auth().signOut();   
+                    });
+
+                 firebase.auth().onAuthStateChanged(firebaseUser=>{
+                    //When authenticated
+                    if(firebaseUser){
+                        user.style.display="none";
+                        
+                        pass.style.display ="none";
+                        console.log("OCCURENCE \t");
+
+                        //firebaseUser
+                        console.log(firebaseUser);
+                        
+
+
+                        log.style.display ="none";
+                        reg.style.display ="none";
+                        out.style.display="inline";
+                        console.log("dis change 1");
+
+                        var ori = document.getElementById("viewer");
+                        var clone = ori.cloneNode(true);
+                        clone.setAttribute('src',"s.pdf");
+                        ori.parentNode.replaceChild(clone,ori);
+
+                        //var user = auth.currentUser;
+                        console.log("check with backend\t"+firebaseUser.providerId);
+                    }
+                    //When not authenticated
+                    else{
+                        console.log("none");
+                        out.style.display="none";
+                        log.style.display ="inline";
+                        reg.style.display ="inline";
+                        console.log("dis change 2");
+                        user.style.display="inline";
+                        pass.style.display ="inline";
+
+                        pass.value="";
+                        user.value="";
+
+                        var ori = document.getElementById("viewer");
+                        var clone = ori.cloneNode(true);
+                        clone.setAttribute('src',"");
+                        ori.parentNode.replaceChild(clone,ori);
+
+                    }
+                    });
+
+
   }());
 
