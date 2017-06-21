@@ -65,13 +65,22 @@ var upload;
       );*/
   });
   document.getElementById("uppy").addEventListener("click",function(){
-     console.log(upload.name);
+     console.log(upload.name.substring(0,upload.name.length-4));
      var store= firebase.storage().ref("pdfs/"+upload.name);
      var task =store.put(upload);
       task.on('state_changed',
       function progress(snapshot){console.log("xd");},function
       error(err){},function complete(){console.log("kappa");});
      //document.getElementById("nani").style.color="red";
+     
+     
+     var ref = firebase.database().ref().child('users');
+     var curUser = auth.currentUser;
+     //var fName = upload.name -;
+     //Or ask user to rename how to view the file!
+     ref.child(curUser.uid).child("Files").push(upload.name.substring(0,upload.name.length-4));
+
+
      });
    
   //ref.put("ex.pdf");
@@ -105,8 +114,22 @@ var upload;
                     const email = txtEmail.value;
                     const password = pass.value;
                     const auth = firebase.auth();
-                    const promise = auth.createUserWithEmailAndPassword(email,password);
-                    promise.catch(e=> console.log(e.message+"\tNANI"));
+                    const promise =
+                    auth.createUserWithEmailAndPassword(email,password).then(function(user){
+                        console.log('uid',user.uid);   
+                        var ref = firebase.database().ref().child('users');
+                        //ref.setValue(new User("lmao",123));
+                        ref.child(user.uid).child("email").set(user.email);//This should be
+                        //var list = [];
+                        //ref.child(user.uid).child("Files").set(list);
+                       
+                       }).catch(e=> {console.log(e.message)});
+                    //promise.catch(e=> {console.log(e.message+"\tNANI");
+                    //return;});
+                    
+                    //var ref = firebase.database().ref().child('users');
+                    //ref.child("jwl027").set("somevalue");//This should be
+
 
                     });
                  out.addEventListener('click',e=>{
@@ -140,6 +163,16 @@ var upload;
 
                         //var user = auth.currentUser;
                         console.log("check with backend\t"+firebaseUser.providerId);
+
+                        var ref = firebase.database().ref().child('users');
+                        //ref.setValue(new User("lmao",123));
+                        //ref.child("jwl027").set("somevalue");//This should be
+                        //in registering!
+                        //ref.on('value',snap=>console.log(snap.val()));
+                        console.log("after create uses");
+                        //ref = ref.child('');
+
+                        
                     }
                     //When not authenticated
                     else{

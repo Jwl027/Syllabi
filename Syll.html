@@ -4,10 +4,20 @@
         <title> Syallbi </title>
         <p> <strong id="nani">  Title  </strong> </p>
         <script src="https://www.gstatic.com/firebasejs/4.1.2/firebase.js"></script>
-
+        <link rel="stylesheet" href="Styles.css">
     </head>
 
     <body>
+
+        <div id="side" class="sideBar">
+        
+<a href="#">About</a>
+  <a href="#">Services</a>
+  <a href="#">Clients</a>
+  <a href="#">Contact</a>
+</div>
+        <div id="main">
+        <button id="fileDisp" onclick="disp()">Files</button>
         <div class="container">
             <input id="txtEmail" type="email" placeholder="User">
 
@@ -21,6 +31,8 @@
         <div>
         <button id="side_nav" onclick="test()">View Syllabi</button>
         </div>
+
+        
         <div class="topnav" id="myTopnav">
             <a href="#home">Home</a>
             <a href="#news">News</a>
@@ -34,6 +46,7 @@
         <input type="file" value="upload" id ="the_file">
         <button id="uppy"> upload </button>
         <pre id="object"></pre>
+        </div>
         <script>
             function funcy() {
                 //document.getElementById("the_file").click();
@@ -44,15 +57,15 @@
                 ori.parentNode.replaceChild(clone,ori);
                 document.getElementById("nani").style.color="blue";
 
-var preObject = document.getElementById("object");
-              preObject.innerText = "k";
-              var ref = firebase.database().ref().child('object');
+                var preObject = document.getElementById("object");
+                preObject.innerText = "k";
+                var ref = firebase.database().ref().child('object');
               //ref is to the root?
             
-        ref.on('value', snap =>{ 
-           console.log(snap.val());
-           preObject.innerText = JSON.stringify(snap.val(),null,3);
-           preObject.innerText = "lol";
+                ref.on('value', snap =>{ 
+                console.log(snap.val());
+                preObject.innerText = JSON.stringify(snap.val(),null,3);
+                preObject.innerText = "lol";
            
         }
         
@@ -68,6 +81,23 @@ var preObject = document.getElementById("object");
         <script>
             function test(){
                 
+
+
+            }
+        </script>
+        <script>
+            var open = false;
+            function disp(){
+               if(open){
+                  open = false;
+                  document.getElementById("side").style.width = "0";
+    document.getElementById("main").style.marginLeft = "0";
+               }
+               else{
+                  open = true;
+                    document.getElementById("side").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+               }
 
 
             }
